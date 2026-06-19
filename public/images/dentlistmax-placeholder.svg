@@ -1,0 +1,21 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" rx="48" fill="#011313"/>
+  <rect x="88" y="92" width="1024" height="616" rx="42" fill="#062828" stroke="#0C5D5D" stroke-width="3"/>
+  <path d="M88 190C245 108 391 226 552 158C703 94 814 110 1112 176V134C1112 111 1093 92 1070 92H130C107 92 88 111 88 134V190Z" fill="#00F2FE" fill-opacity="0.12"/>
+  <circle cx="263" cy="286" r="72" fill="#00F2FE" fill-opacity="0.14" stroke="#00F2FE" stroke-width="4"/>
+  <path d="M250 251C237 268 231 286 235 305C240 333 259 348 263 348C267 348 286 333 291 305C295 286 289 268 276 251C270 243 256 243 250 251Z" fill="#00F2FE"/>
+  <path d="M246 274C257 285 270 285 280 274" stroke="#011313" stroke-width="8" stroke-linecap="round"/>
+  <text x="372" y="278" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="4">DENTLISTMAX</text>
+  <text x="376" y="336" fill="#FFB300" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="800" letter-spacing="8">DENTAL WEB PLATFORM</text>
+  <rect x="186" y="442" width="252" height="92" rx="18" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.12"/>
+  <rect x="474" y="442" width="252" height="92" rx="18" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.12"/>
+  <rect x="762" y="442" width="252" height="92" rx="18" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.12"/>
+  <rect x="216" y="476" width="142" height="12" rx="6" fill="#00F2FE" fill-opacity="0.65"/>
+  <rect x="504" y="476" width="172" height="12" rx="6" fill="#00F2FE" fill-opacity="0.65"/>
+  <rect x="792" y="476" width="118" height="12" rx="6" fill="#00F2FE" fill-opacity="0.65"/>
+  <rect x="216" y="506" width="184" height="10" rx="5" fill="#FFFFFF" fill-opacity="0.24"/>
+  <rect x="504" y="506" width="144" height="10" rx="5" fill="#FFFFFF" fill-opacity="0.24"/>
+  <rect x="792" y="506" width="172" height="10" rx="5" fill="#FFFFFF" fill-opacity="0.24"/>
+  <path d="M210 626H990" stroke="#00F2FE" stroke-opacity="0.25" stroke-width="2"/>
+  <circle cx="600" cy="626" r="9" fill="#FFB300"/>
+</svg>

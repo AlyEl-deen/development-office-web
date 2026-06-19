@@ -1,0 +1,68 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper Functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Project Validation
+    function isValidProject(data) {
+      return data.keys().hasAll(['name', 'shortDescription', 'category']) &&
+             data.name is string && data.name.size() > 0 && data.name.size() <= 100 &&
+             data.category in ['Website', 'Mobile App', 'System'];
+    }
+
+    // Order Validation
+    function isValidOrder(data) {
+      return data.keys().hasAll(['customerName', 'customerEmail', 'projectType', 'details']) &&
+             data.customerEmail.size() <= 200 &&
+             data.details.size() <= 2000;
+    }
+
+    // Partner Validation
+    function isValidPartner(data) {
+      return data.keys().hasAll(['companyName']) &&
+             data.companyName is string && data.companyName.size() <= 100;
+    }
+
+    // Chat Validation
+    function isValidChat(data) {
+      return data.keys().hasAll(['role', 'content', 'timestamp', 'sessionId']) &&
+             data.role in ['user', 'assistant'] &&
+             data.content.size() <= 5000;
+    }
+
+    // Collection Rules
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if false; // Only via console/admin for now
+    }
+
+    match /orders/{orderId} {
+      allow create: if isValidOrder(request.resource.data);
+      allow read: if false; // Confidential
+    }
+
+    match /partners/{partnerId} {
+      allow read: if true;
+      allow create: if isValidPartner(request.resource.data);
+    }
+
+    match /chats/{chatId} {
+      // Security simplified for session-based demo chat
+      // In production, we would use auth or strict sessionId matching
+      allow create: if isValidChat(request.resource.data);
+      allow list, get: if request.query.limit <= 100; 
+    }
+  }
+}

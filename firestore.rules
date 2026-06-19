@@ -1,0 +1,83 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function optionalString(data, field, maxLength) {
+      return !(field in data) || (data[field] is string && data[field].size() <= maxLength);
+    }
+
+    function validOrder(data) {
+      return data.keys().hasOnly([
+        'customerName',
+        'customerEmail',
+        'personalEmail',
+        'personalPhone',
+        'whatsapp',
+        'companyName',
+        'companyEmail',
+        'companyAddress',
+        'companyMobile',
+        'projectType',
+        'details',
+        'status',
+        'createdAt'
+      ])
+      && data.keys().hasAll(['customerName', 'customerEmail', 'projectType', 'details', 'status', 'createdAt'])
+      && data.customerName is string
+      && data.customerName.size() > 1
+      && data.customerName.size() <= 120
+      && data.customerEmail is string
+      && data.customerEmail.size() <= 180
+      && data.projectType in ['Website', 'Mobile App', 'System']
+      && data.details is string
+      && data.details.size() >= 10
+      && data.details.size() <= 5000
+      && data.status == 'pending'
+      && data.createdAt == request.time
+      && optionalString(data, 'personalEmail', 180)
+      && optionalString(data, 'personalPhone', 60)
+      && optionalString(data, 'whatsapp', 60)
+      && optionalString(data, 'companyName', 180)
+      && optionalString(data, 'companyEmail', 180)
+      && optionalString(data, 'companyAddress', 400)
+      && optionalString(data, 'companyMobile', 60);
+    }
+
+    function validChatMessage(data) {
+      return data.keys().hasOnly(['role', 'content', 'timestamp', 'sessionId'])
+      && data.keys().hasAll(['role', 'content', 'timestamp', 'sessionId'])
+      && data.role in ['user', 'assistant']
+      && data.content is string
+      && data.content.size() > 0
+      && data.content.size() <= 4000
+      && data.sessionId is string
+      && data.sessionId.size() >= 4
+      && data.sessionId.size() <= 80
+      && data.timestamp == request.time;
+    }
+
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /partners/{partnerId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /orders/{orderId} {
+      allow create: if validOrder(request.resource.data);
+      allow read, update, delete: if false;
+    }
+
+    match /chats/{messageId} {
+      allow create: if validChatMessage(request.resource.data);
+      allow read, update, delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
