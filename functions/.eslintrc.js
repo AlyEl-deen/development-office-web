@@ -20,6 +20,8 @@ module.exports = {
   ignorePatterns: [
     "/lib/**/*", // Ignore built files.
     "/generated/**/*", // Ignore generated files.
+    "/src/dataconnect-admin-generated/**/*",
+    "/src/genkit-sample.ts",
   ],
   plugins: [
     "@typescript-eslint",
