@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { db } from '../lib/firebase';
 import { collection, onSnapshot, query, limit } from 'firebase/firestore';
-import { motion } from 'motion/react';
+import { motion, type Variants } from 'motion/react';
 import { Partner, asset } from '../lib/utils';
 import { ShieldCheck } from 'lucide-react';
 
-const partnerGridVariants = {
+const partnerGridVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -16,7 +16,7 @@ const partnerGridVariants = {
   },
 };
 
-const partnerCardVariants = {
+const partnerCardVariants: Variants = {
   hidden: { opacity: 0, y: 28, scale: 0.92 },
   visible: {
     opacity: 1,
@@ -24,7 +24,7 @@ const partnerCardVariants = {
     scale: 1,
     transition: {
       duration: 0.55,
-      ease: [0.22, 1, 0.36, 1],
+      ease: 'easeOut',
     },
   },
 };
