@@ -62,9 +62,9 @@ const fallbackProjects: Project[] = [
   },
   {
     id: "fc-stadium",
-    name: "FC Stadiom V.I.P. POS System",
+    name: "FC Stadiom POS System",
     shortDescription: "A professional desktop POS application for managing a PlayStation Lounge gaming center.",
-    fullDescription: "FC Stadiom V.I.P. POS System is a professional desktop Point of Sale application built for PlayStation Lounge gaming centers. The app combines a real-time room monitor, flexible session billing, product sales, stock tracking, admin controls, and revenue analytics in one maintainable desktop system. It is structured with a clear separation between React UI components, business logic controllers, Zustand-powered state, and SQLite persistence for rooms, products, sessions, transactions, and transaction items.",
+    fullDescription: "FC Stadiom POS System is a professional desktop Point of Sale application built for PlayStation Lounge gaming centers. The app combines a real-time room monitor, flexible session billing, product sales, stock tracking, admin controls, and revenue analytics in one maintainable desktop system. It is structured with a clear separation between React UI components, business logic controllers, Zustand-powered state, and SQLite persistence for rooms, products, sessions, transactions, and transaction items.",
     imageUrl: "/images/fc-stadiom-vip-logo.png",
     galleryImages: [
       "/images/fc-stadium-room-start.png",
@@ -87,7 +87,7 @@ const fallbackProjects: Project[] = [
       "Controller layer for sessions, rooms, products, transactions, and analytics",
     ],
     techStack: ["React 18", "TypeScript", "Tauri", "Tailwind CSS", "SQLite", "Vite", "Zustand"],
-    priceRange: "22,000 - 28,000 EGP",
+    priceRange: "22000 - 28000 EGP",
   },
   {
     id: "dentlistmax",
