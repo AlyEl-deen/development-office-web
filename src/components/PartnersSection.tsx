@@ -26,15 +26,12 @@ export function PartnersSection() {
     );
   }, []);
 
-  /* return (
+  return (
     <section className="py-20 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col items-center justify-center text-center mb-12 gap-6">
           <div className="space-y-4 max-w-2xl">
             <h2 className="text-sm font-bold text-sky-400 uppercase tracking-widest mb-4">Market Partners & Sponsors</h2>
-            <p className="text-slate-400 mx-auto max-w-lg">
-              Displaying current partners and sponsors from the live network.
-            </p>
           </div>
         </div>
 
@@ -74,5 +71,5 @@ export function PartnersSection() {
         </div>
       </div>
     </section>
-  ); */
+  );
 }
