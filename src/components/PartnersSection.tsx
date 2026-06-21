@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { db } from '../lib/firebase';
 import { collection, onSnapshot, query, limit } from 'firebase/firestore';
 import { motion, type Variants } from 'motion/react';
-import { Partner, asset } from '../lib/utils';
+import { Partner, asset, cn } from '../lib/utils';
 import { ShieldCheck } from 'lucide-react';
 
 const partnerGridVariants: Variants = {
@@ -115,7 +115,10 @@ export function PartnersSection() {
                 scale: 1.04,
                 boxShadow: '0 24px 70px rgba(0, 242, 254, 0.16)',
               }}
-              className="glass min-h-40 w-full max-w-[240px] p-8 rounded-2xl flex flex-col items-center justify-center gap-4 border-white/5 grayscale transition-all hover:grayscale-0 hover:bg-white/10"
+              className={cn(
+                "glass min-h-40 w-full max-w-[240px] p-8 rounded-2xl flex flex-col items-center justify-center gap-4 border-white/5 transition-all hover:bg-white/10",
+                partner.id === 'future-coders-academy' ? "grayscale-0" : "grayscale hover:grayscale-0"
+              )}
             >
               {partner.logoUrl ? (
                 <motion.img
