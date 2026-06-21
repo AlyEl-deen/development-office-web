@@ -5,6 +5,30 @@ import { motion } from 'motion/react';
 import { Partner, asset } from '../lib/utils';
 import { ShieldCheck } from 'lucide-react';
 
+const partnerGridVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.14,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+const partnerCardVariants = {
+  hidden: { opacity: 0, y: 28, scale: 0.92 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.55,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
 const featuredPartners: Partner[] = [
   {
     id: 'dr-youssef-amin-clinic',
@@ -65,9 +89,15 @@ export function PartnersSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 justify-items-center">
+        <motion.div
+          variants={partnerGridVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.25 }}
+          className="flex flex-wrap justify-center gap-6"
+        >
           {loading && Array.from({ length: 5 }).map((_, index) => (
-            <div key={index} className="glass h-36 w-full animate-pulse rounded-2xl bg-white/5" />
+            <div key={index} className="glass h-36 w-full max-w-[220px] animate-pulse rounded-2xl bg-white/5" />
           ))}
 
           {!loading && error && (
@@ -79,12 +109,22 @@ export function PartnersSection() {
           {!loading && !error && partners.map((partner) => (
             <motion.div
               key={partner.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              className="glass p-8 rounded-2xl flex flex-col items-center justify-center gap-4 border-white/5 grayscale hover:grayscale-0 transition-all hover:bg-white/10"
+              variants={partnerCardVariants}
+              whileHover={{
+                y: -8,
+                scale: 1.04,
+                boxShadow: '0 24px 70px rgba(0, 242, 254, 0.16)',
+              }}
+              className="glass min-h-40 w-full max-w-[240px] p-8 rounded-2xl flex flex-col items-center justify-center gap-4 border-white/5 grayscale transition-all hover:grayscale-0 hover:bg-white/10"
             >
               {partner.logoUrl ? (
-                <img src={asset(partner.logoUrl)} alt={partner.companyName} className="h-16 max-w-36 object-contain" />
+                <motion.img
+                  src={asset(partner.logoUrl)}
+                  alt={partner.companyName}
+                  className="h-16 max-w-36 object-contain"
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut' }}
+                />
               ) : (
                 <div className="w-20 h-20 rounded-3xl border border-dashed border-white/10 bg-white/5 flex flex-col items-center justify-center text-slate-400 text-[10px] text-center px-3">
                   <ShieldCheck size={24} className="mb-2 text-sky-400" />
@@ -101,7 +141,7 @@ export function PartnersSection() {
               Become the first partner to secure a spot in our network.
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
