@@ -75,8 +75,8 @@ export default function App() {
                   <p className="text-xs uppercase font-bold text-gold tracking-widest">Contact</p>
                   <ul className="text-sm text-slate-400 space-y-1">
                     <li><a href="mailto:contact@wmd-office.com" className="hover:text-gold transition-colors">contact@wmd-office.com</a></li>
-                    <li><a href="tel:+201234567890" className="hover:text-gold transition-colors">+20 123 456 7890</a></li>
-                    <li><a href="#" className="hover:text-gold transition-colors">Cairo, Egypt</a></li>
+                    <li><a href="tel:+201067672492" className="hover:text-gold transition-colors">01067672492</a></li>
+                    <li><a href="#" className="hover:text-gold transition-colors">Red Sea, Egypt</a></li>
                   </ul>
                </div>
             </div>

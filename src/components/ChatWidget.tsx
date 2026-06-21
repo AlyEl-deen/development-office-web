@@ -8,9 +8,18 @@ import { ChatMessage, cn } from '../lib/utils';
 import Markdown from 'react-markdown';
 
 export function ChatWidget() {
+  const isChatConfigured = Boolean(import.meta.env.VITE_GEMINI_API_KEY);
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>(() => [
+    {
+      id: 'support-welcome',
+      role: 'assistant',
+      content: "W.M. Support Protocol is online. Tell me what you want to build, and I can guide you through services, project options, pricing ranges, and the order form.",
+      timestamp: Date.now(),
+      sessionId: 'system',
+    },
+  ]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sessionId] = useState(() => Math.random().toString(36).substring(7));
@@ -19,19 +28,32 @@ export function ChatWidget() {
   useEffect(() => {
     if (!isOpen) return;
 
-    if (!import.meta.env.VITE_GEMINI_API_KEY) {
-      setError("Chat is not configured yet.");
+    if (!isChatConfigured) {
+      setError("Live AI is waiting for the Gemini API key. Use the order form or contact details below until it is connected.");
       return;
     }
 
     if (!chat) {
        setChat(createChat());
     }
-  }, [isOpen, chat]);
+  }, [isOpen, chat, isChatConfigured]);
+
+  const logChatMessage = async (role: ChatMessage['role'], content: string) => {
+    try {
+      await addDoc(collection(db, 'chats'), {
+        role,
+        content,
+        timestamp: serverTimestamp(),
+        sessionId
+      });
+    } catch (error) {
+      console.warn('Chat log could not be saved.', error);
+    }
+  };
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!message.trim() || loading || !chat) return;
+    if (!message.trim() || loading || !chat || !isChatConfigured) return;
 
     const userMsg = message.trim();
     setMessage('');
@@ -47,12 +69,7 @@ export function ChatWidget() {
     setMessages((current) => [...current, userMessage]);
 
     try {
-      await addDoc(collection(db, 'chats'), {
-        role: 'user',
-        content: userMsg,
-        timestamp: serverTimestamp(),
-        sessionId
-      });
+      logChatMessage('user', userMsg);
 
       const response = await chat.sendMessage({ message: userMsg });
       const aiContent = response.text || "I'm sorry, I couldn't process that.";
@@ -65,14 +82,9 @@ export function ChatWidget() {
       };
       setMessages((current) => [...current, assistantMessage]);
 
-      await addDoc(collection(db, 'chats'), {
-        role: 'assistant',
-        content: aiContent,
-        timestamp: serverTimestamp(),
-        sessionId
-      });
+      logChatMessage('assistant', aiContent);
     } catch (error) {
-      setError("Message could not be sent. Please try again.");
+      setError("Live support could not answer right now. Please try again or use the order form.");
     } finally {
       setLoading(false);
     }
@@ -92,7 +104,7 @@ export function ChatWidget() {
             <div className="bg-anubis-cyan p-4 flex justify-between items-center text-anubis-dark font-display font-black uppercase tracking-[0.2em] shadow-lg shadow-anubis-cyan/20">
               <div className="flex items-center gap-2">
                 <Bot className="w-5 h-5" />
-                <span>Navigator</span>
+                <span>W.M. Support</span>
               </div>
               <button onClick={() => setIsOpen(false)} className="hover:rotate-90 transition-transform">
                 <X className="w-5 h-5" />
@@ -152,12 +164,13 @@ export function ChatWidget() {
                 type="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="INPUT DATA..."
+                placeholder={isChatConfigured ? "INPUT DATA..." : "ADD VITE_GEMINI_API_KEY TO ACTIVATE AI..."}
+                disabled={!isChatConfigured}
                 className="flex-1 bg-white/5 border border-white/10 px-4 py-2 text-[10px] font-mono focus:outline-none focus:border-anubis-cyan/50 text-white placeholder:text-slate-600"
               />
               <button
                 type="submit"
-                disabled={!message.trim() || loading}
+                disabled={!message.trim() || loading || !isChatConfigured}
                 className="bg-anubis-cyan text-anubis-dark p-2 disabled:opacity-50 hover:bg-anubis-gold transition-colors"
               >
                 <Send className="w-4 h-4" />
@@ -174,8 +187,8 @@ export function ChatWidget() {
         className="bg-anubis-cyan shadow-anubis-cyan/30 shadow-2xl text-anubis-dark px-8 py-3 flex items-center gap-4 font-black text-[10px] uppercase tracking-[0.3em]"
         style={{ clipPath: 'polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%)' }}
       >
-        <div className="w-2 h-2 bg-anubis-cyan rounded-full animate-pulse shadow-[0_0_8px_rgba(0,242,254,0.6)]"></div>
-        Live Terminal
+        <div className="w-2 h-2 bg-anubis-dark rounded-full animate-pulse shadow-[0_0_8px_rgba(0,242,254,0.6)]"></div>
+        W.M. Support Protocol
       </motion.button>
     </div>
   );
