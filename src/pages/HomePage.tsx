@@ -110,7 +110,9 @@ export function HomePage() {
         <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
           <div className="space-y-4 text-left">
             <h2 className="text-[10px] font-black text-anubis-cyan uppercase tracking-[0.5em]">Active Core Modules</h2>
-            <h3 className="font-display text-6xl font-black text-white">Technological <span className="text-anubis-gold">Showcase</span></h3>
+            <h3 className="font-display text-4xl font-black leading-tight text-white sm:text-5xl md:text-6xl">
+              Technological <span className="text-anubis-gold">Showcase</span>
+            </h3>
           </div>
           <button className="text-xs text-sky-400 underline underline-offset-8 font-bold uppercase tracking-widest hover:text-white transition-colors">
             Explore All Modules

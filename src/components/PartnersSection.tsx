@@ -5,8 +5,37 @@ import { motion } from 'motion/react';
 import { Partner, asset } from '../lib/utils';
 import { ShieldCheck } from 'lucide-react';
 
+const featuredPartners: Partner[] = [
+  {
+    id: 'dr-youssef-amin-clinic',
+    companyName: 'Dr. Youssef Amin Clinic',
+    logoUrl: '/images/partner-youssef-amin-clinic.png',
+    status: 'active',
+  },
+  {
+    id: 'future-coders-academy',
+    companyName: 'Future Coders Academy',
+    logoUrl: '/images/partner-future-coders-academy.png',
+    status: 'active',
+  },
+  {
+    id: 'dentlistmax',
+    companyName: 'Dentlistmax',
+    logoUrl: '/images/partner-dentlistmax.jpeg',
+    status: 'active',
+  },
+];
+
+function mergePartners(remotePartners: Partner[]) {
+  const featuredIds = new Set(featuredPartners.map((partner) => partner.id));
+  return [
+    ...featuredPartners,
+    ...remotePartners.filter((partner) => !featuredIds.has(partner.id)),
+  ];
+}
+
 export function PartnersSection() {
-  const [partners, setPartners] = useState<Partner[]>([]);
+  const [partners, setPartners] = useState<Partner[]>(featuredPartners);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -15,13 +44,14 @@ export function PartnersSection() {
     return onSnapshot(
       q,
       (snapshot) => {
-        setPartners(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Partner)));
+        setPartners(mergePartners(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Partner))));
         setLoading(false);
         setError(null);
       },
       () => {
+        setPartners(featuredPartners);
         setLoading(false);
-        setError("Partners could not be loaded.");
+        setError(null);
       },
     );
   }, []);
@@ -54,13 +84,16 @@ export function PartnersSection() {
               className="glass p-8 rounded-2xl flex flex-col items-center justify-center gap-4 border-white/5 grayscale hover:grayscale-0 transition-all hover:bg-white/10"
             >
               {partner.logoUrl ? (
-                <img src={asset(partner.logoUrl)} alt={partner.companyName} className="h-12 object-contain" />
+                <img src={asset(partner.logoUrl)} alt={partner.companyName} className="h-16 max-w-36 object-contain" />
               ) : (
                 <div className="w-20 h-20 rounded-3xl border border-dashed border-white/10 bg-white/5 flex flex-col items-center justify-center text-slate-400 text-[10px] text-center px-3">
                   <ShieldCheck size={24} className="mb-2 text-sky-400" />
                   Mark Pending
                 </div>
               )}
+              <p className="text-center text-[10px] font-bold uppercase tracking-[0.18em] text-slate-300">
+                {partner.companyName}
+              </p>
             </motion.div>
           ))}
           {!loading && !error && partners.length === 0 && (
