@@ -4,13 +4,13 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyBWpVWIhanYY51Z1dklCKHlcIIRCtXfXr8",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "wmd-office-web.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "wmd-office-web",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "wmd-office-web.firebasestorage.app",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "1062269186222",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:1062269186222:web:d9ca69db4d249e7c77bd3f",
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "G-P8G2GJNXN1",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyBVqs3FAhzdzjQnweE42tj8P0osAz8y8V0",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "wm-dev-office-web.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "wm-dev-office-web",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "wm-dev-office-web.firebasestorage.app",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "925345158917",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:925345158917:web:d4607016e3cc0258ed896c",
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);

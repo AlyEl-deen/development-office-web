@@ -5,9 +5,9 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(({command}) => {
   return {
-    base: command === 'serve' || process.env.VERCEL === '1' || process.env.VERCEL === 'true'
-      ? '/'
-      : '/w.m.-development-web/',
+    base: process.env.GITHUB_PAGES === '1' || process.env.GITHUB_PAGES === 'true'
+      ? '/w.m.-development-web/'
+      : '/',
 
     plugins: [react(), tailwindcss()],
 

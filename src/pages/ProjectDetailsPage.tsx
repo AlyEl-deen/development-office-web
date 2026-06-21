@@ -1,9 +1,109 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowLeft, CheckCircle2, ChevronLeft, ChevronRight, ExternalLink, Zap, Target, Box, X, ZoomIn } from 'lucide-react';
-import { cn, asset } from '../lib/utils';
+import { ArrowLeft, CheckCircle2, ChevronLeft, ChevronRight, ExternalLink, Zap, Target, Box, X, ZoomIn, Layers3, MonitorPlay, Database, BarChart3 } from 'lucide-react';
+import { cn, asset, Project } from '../lib/utils';
 import { useProject } from '../hooks/useProjects';
+
+type DesktopDetailContent = {
+  highlights: Array<{ label: string; value: string; icon: typeof MonitorPlay }>;
+  workflowLabel: string;
+  workflowTitle: string;
+  workflowSteps: string[];
+  architectureTitle: string;
+  architectureItems: string[];
+};
+
+function getDesktopDetailContent(project: Project): DesktopDetailContent {
+  const contentByProject: Record<string, DesktopDetailContent> = {
+    "fc-academy": {
+      highlights: [
+        { label: "Platform", value: "Desktop App", icon: MonitorPlay },
+        { label: "Records", value: "Student Profiles", icon: Database },
+        { label: "Operations", value: "Course Control", icon: Layers3 },
+        { label: "Insight", value: "Performance Metrics", icon: BarChart3 },
+      ],
+      workflowLabel: "Academy Flow",
+      workflowTitle: "From Enrollment To Performance",
+      workflowSteps: ["Register", "Schedule", "Attend", "Collect", "Analyze"],
+      architectureTitle: "Training Center Architecture",
+      architectureItems: [
+        "Student records, groups, instructors, and courses kept in one operating system",
+        "Attendance, enrollment, and payment workflows designed for daily admin speed",
+        "Dashboards turn center activity into clear performance and finance signals",
+      ],
+    },
+    "future-dental": {
+      highlights: [
+        { label: "Platform", value: "Clinic System", icon: MonitorPlay },
+        { label: "Records", value: "Patient Data", icon: Database },
+        { label: "Operations", value: "Appointments", icon: Layers3 },
+        { label: "Insight", value: "Profit Tracking", icon: BarChart3 },
+      ],
+      workflowLabel: "Clinic Flow",
+      workflowTitle: "From Booking To Profit View",
+      workflowSteps: ["Book", "Treat", "Price", "Collect", "Review"],
+      architectureTitle: "Clinic Operations Architecture",
+      architectureItems: [
+        "Appointment, patient, and treatment data organized around clinic workflows",
+        "Procedure costs and collections connected to profit visibility",
+        "Secure desktop interface shaped for reception and management use",
+      ],
+    },
+    "fc-stadium": {
+      highlights: [
+        { label: "Platform", value: "Desktop App", icon: MonitorPlay },
+        { label: "Data Layer", value: "SQLite Local", icon: Database },
+        { label: "Operations", value: `${project.features.length} Core Modules`, icon: Layers3 },
+        { label: "Insight", value: "Analytics Ready", icon: BarChart3 },
+      ],
+      workflowLabel: "Operational Flow",
+      workflowTitle: "From Room Status To Reports",
+      workflowSteps: ["Monitor", "Start Session", "Sell Items", "Checkout", "Report"],
+      architectureTitle: "POS Operations Architecture",
+      architectureItems: [
+        "Business logic separated from room, product, transaction, and analytics screens",
+        "Session timers, stock changes, and billing flow designed for front-desk speed",
+        "Local persistence keeps rooms, sales, sessions, and reports available on desktop",
+      ],
+    },
+    dentlistmax: {
+      highlights: [
+        { label: "Platform", value: "Web Platform", icon: MonitorPlay },
+        { label: "Audience", value: "Launch Capture", icon: Database },
+        { label: "Content", value: "Course Discovery", icon: Layers3 },
+        { label: "Insight", value: "Growth Signals", icon: BarChart3 },
+      ],
+      workflowLabel: "Web Journey",
+      workflowTitle: "From Discovery To Registration",
+      workflowSteps: ["Discover", "Register", "Browse", "Learn", "Launch"],
+      architectureTitle: "Education Web Architecture",
+      architectureItems: [
+        "Public landing experience built around brand trust and registration intent",
+        "Course and role sections guide dental professionals toward the right path",
+        "Responsive content structure supports launch capture and audience growth",
+      ],
+    },
+  };
+
+  return contentByProject[project.id] || {
+    highlights: [
+      { label: "Platform", value: project.category === "System" ? "Desktop App" : project.category, icon: MonitorPlay },
+      { label: "Scope", value: `${project.features.length || 1} Modules`, icon: Layers3 },
+      { label: "Stack", value: project.techStack[0] || "Custom Build", icon: Database },
+      { label: "Focus", value: "User Workflow", icon: BarChart3 },
+    ],
+    workflowLabel: "Project Flow",
+    workflowTitle: "From Need To Delivery",
+    workflowSteps: ["Discover", "Design", "Build", "Test", "Launch"],
+    architectureTitle: "Project Architecture",
+    architectureItems: [
+      "Feature structure matched to the product domain",
+      "Interface and data model designed around the main user workflow",
+      "Build approach kept modular for future iteration",
+    ],
+  };
+}
 
 export function ProjectDetailsPage() {
   const { id } = useParams();
@@ -74,6 +174,8 @@ export function ProjectDetailsPage() {
     );
   }
 
+  const desktopContent = getDesktopDetailContent(project);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -85,7 +187,7 @@ export function ProjectDetailsPage() {
         Back to Portfolio
       </Link>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.08fr)_minmax(420px,0.92fr)] gap-10 xl:gap-12 items-start">
         {/* Gallery/Image */}
         <motion.div 
           initial={{ x: -30, opacity: 0 }}
@@ -178,6 +280,38 @@ export function ProjectDetailsPage() {
               ))}
             </div>
           )}
+
+          <div className="hidden lg:grid grid-cols-2 gap-4">
+            {desktopContent.highlights.map(({ label, value, icon: Icon }) => (
+              <div key={label} className="glass rounded-2xl border-white/5 p-5">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-sm border border-anubis-cyan/20 bg-anubis-cyan/10 text-anubis-cyan">
+                  <Icon size={19} />
+                </div>
+                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-500">{label}</p>
+                <p className="mt-2 font-display text-lg font-black uppercase tracking-tight text-white">{value}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="hidden lg:block glass rounded-3xl border-anubis-cyan/10 p-6">
+            <div className="mb-5 flex items-center justify-between gap-4">
+              <div>
+                <p className="text-[9px] font-black uppercase tracking-[0.35em] text-anubis-cyan">{desktopContent.workflowLabel}</p>
+                <h3 className="mt-2 font-display text-2xl font-black uppercase tracking-tight text-white">{desktopContent.workflowTitle}</h3>
+              </div>
+              <Zap className="h-8 w-8 text-anubis-gold" />
+            </div>
+            <div className="grid grid-cols-5 gap-2">
+              {desktopContent.workflowSteps.map((step, index) => (
+                <div key={step} className="relative rounded-xl border border-white/10 bg-white/[0.03] px-3 py-4 text-center">
+                  <p className="mx-auto mb-3 grid h-7 w-7 place-items-center rounded-full border border-anubis-gold/30 bg-anubis-gold/10 font-mono text-[10px] font-black text-anubis-gold">
+                    {index + 1}
+                  </p>
+                  <p className="text-[10px] font-black uppercase leading-snug tracking-widest text-slate-300">{step}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </motion.div>
 
         {/* Info */}
@@ -207,7 +341,7 @@ export function ProjectDetailsPage() {
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.08fr)_minmax(280px,0.92fr)] gap-6">
             <div className="glass p-8 rounded-3xl border-white/5 space-y-6">
               <h3 className="font-display font-bold flex items-center gap-3 uppercase tracking-widest text-sm text-white">
                 <Target className="text-anubis-gold" size={18} />
@@ -225,22 +359,48 @@ export function ProjectDetailsPage() {
               </ul>
             </div>
 
-            <div className="glass p-8 rounded-3xl border-white/5 space-y-6">
-              <h3 className="font-display font-bold flex items-center gap-3 uppercase tracking-widest text-sm text-white">
-                <Box className="text-anubis-gold" size={18} />
-                Tech Stack
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {project.techStack.length > 0 ? project.techStack.map(t => (
-                  <span key={t} className="bg-white/5 px-4 py-1.5 rounded-sm text-[10px] uppercase font-black tracking-widest text-anubis-cyan border border-anubis-cyan/20">{t}</span>
-                )) : (
-                  <span className="text-sm text-slate-500">Tech stack pending.</span>
-                )}
+            <div className="space-y-6">
+              <div className="glass p-8 rounded-3xl border-white/5 space-y-6">
+                <h3 className="font-display font-bold flex items-center gap-3 uppercase tracking-widest text-sm text-white">
+                  <Box className="text-anubis-gold" size={18} />
+                  Tech Stack
+                </h3>
+                <div className="flex flex-wrap gap-3">
+                  {project.techStack.length > 0 ? project.techStack.map(t => (
+                    <span key={t} className="bg-white/5 px-4 py-1.5 rounded-sm text-[10px] uppercase font-black tracking-widest text-anubis-cyan border border-anubis-cyan/20">{t}</span>
+                  )) : (
+                    <span className="text-sm text-slate-500">Tech stack pending.</span>
+                  )}
+                </div>
+              </div>
+
+              <div className="hidden md:block glass p-8 rounded-3xl border-anubis-gold/10 space-y-5">
+                <h3 className="font-display font-bold flex items-center gap-3 uppercase tracking-widest text-sm text-white">
+                  <Layers3 className="text-anubis-gold" size={18} />
+                  {desktopContent.architectureTitle}
+                </h3>
+                <div className="space-y-4">
+                  {desktopContent.architectureItems.map((item) => (
+                    <div key={item} className="flex gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                      <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-anubis-cyan" />
+                      <p className="text-sm leading-relaxed text-slate-400">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="hidden md:block glass rounded-3xl border-anubis-cyan/10 p-8">
+                <p className="text-[10px] text-slate-500 uppercase font-black tracking-[0.3em]">Estimated Investment</p>
+                <p className="mt-3 text-3xl font-display font-black text-white">{project.priceRange}</p>
+                <Link to="/order" className="btn-primary mt-7 flex w-full items-center justify-center gap-3 text-center group">
+                  Start Project
+                  <ChevronRight className="group-hover:translate-x-2 transition-transform" />
+                </Link>
               </div>
             </div>
           </div>
 
-          <div className="glass p-10 rounded-3xl border-anubis-gold/20 flex flex-col md:flex-row justify-between items-center gap-8 relative overflow-hidden group">
+          <div className="glass p-10 rounded-3xl border-anubis-gold/20 flex flex-col md:hidden justify-between items-center gap-8 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-32 h-32 bg-anubis-gold/5 blur-3xl group-hover:bg-anubis-gold/10 transition-colors" />
             <div className="space-y-2 text-center md:text-left z-10">
               <p className="text-[10px] text-slate-500 uppercase font-black tracking-[0.3em]">Estimated Investment</p>
