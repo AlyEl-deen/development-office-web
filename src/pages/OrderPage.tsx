@@ -86,109 +86,112 @@ export function OrderPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
         <form onSubmit={handleSubmit} className="md:col-span-2 space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Full Name</label>
-              <input 
-                required
-                type="text" 
-                value={formData.customerName}
-                onChange={(e) => setFormData({...formData, customerName: e.target.value})}
-                className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
-                placeholder="John Doe"
-              />
+          <div className="space-y-4">
+            <div>
+              <p className="text-[10px] uppercase font-black tracking-[0.35em] text-sky-accent">Personal Information</p>
+              <p className="mt-1 text-xs text-slate-500">Tell us who we should contact about this request.</p>
             </div>
-            <div className="space-y-2">
-              <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Commercial Email</label>
-              <input 
-                required
-                type="email" 
-                value={formData.customerEmail}
-                onChange={(e) => setFormData({...formData, customerEmail: e.target.value})}
-                className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
-                placeholder="john@company.com"
-              />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Full Name</label>
+                <input 
+                  required
+                  type="text" 
+                  value={formData.customerName}
+                  onChange={(e) => setFormData({...formData, customerName: e.target.value})}
+                  className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
+                  placeholder="John Doe"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Personal Email Address</label>
+                <input 
+                  required
+                  type="email" 
+                  value={formData.customerEmail}
+                  onChange={(e) => setFormData({...formData, customerEmail: e.target.value, personalEmail: e.target.value})}
+                  className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
+                  placeholder="you@example.com"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Personal Phone Number</label>
+                <input
+                  type="tel"
+                  value={formData.personalPhone}
+                  onChange={(e) => setFormData({...formData, personalPhone: e.target.value})}
+                  className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
+                  placeholder="+20 100 000 0000"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">WhatsApp</label>
+                <input
+                  type="text"
+                  value={formData.whatsapp}
+                  onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
+                  className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
+                  placeholder="+20 100 000 0000"
+                />
+              </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Personal Email Address</label>
-              <input
-                type="email"
-                value={formData.personalEmail}
-                onChange={(e) => setFormData({...formData, personalEmail: e.target.value})}
-                className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
-                placeholder="you@example.com"
-              />
+          <div className="space-y-4 pt-4">
+            <div>
+              <p className="text-[10px] uppercase font-black tracking-[0.35em] text-sky-accent">Company Information</p>
+              <p className="mt-1 text-xs text-slate-500">Add business details if this project is for a company.</p>
             </div>
-            <div className="space-y-2">
-              <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Personal Phone Number</label>
-              <input
-                type="tel"
-                value={formData.personalPhone}
-                onChange={(e) => setFormData({...formData, personalPhone: e.target.value})}
-                className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
-                placeholder="+1 555 555 5555"
-              />
-            </div>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">WhatsApp</label>
-              <input
-                type="text"
-                value={formData.whatsapp}
-                onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
-                className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
-                placeholder="+1 555 555 5555"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Company Name</label>
+                <input
+                  type="text"
+                  value={formData.companyName}
+                  onChange={(e) => setFormData({...formData, companyName: e.target.value})}
+                  className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
+                  placeholder="ACME Inc."
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Company Email</label>
+                <input
+                  type="email"
+                  value={formData.companyEmail}
+                  onChange={(e) => setFormData({...formData, companyEmail: e.target.value})}
+                  className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
+                  placeholder="contact@company.com"
+                />
+              </div>
             </div>
-            <div className="space-y-2">
-              <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Company Name</label>
-              <input
-                type="text"
-                value={formData.companyName}
-                onChange={(e) => setFormData({...formData, companyName: e.target.value})}
-                className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
-                placeholder="ACME Inc."
-              />
-            </div>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Company Email</label>
-              <input
-                type="email"
-                value={formData.companyEmail}
-                onChange={(e) => setFormData({...formData, companyEmail: e.target.value})}
-                className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
-                placeholder="contact@company.com"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Company Mobile</label>
+                <input
+                  type="tel"
+                  value={formData.companyMobile}
+                  onChange={(e) => setFormData({...formData, companyMobile: e.target.value})}
+                  className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
+                  placeholder="+20 100 000 0000"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Company Address</label>
+                <input
+                  type="text"
+                  value={formData.companyAddress}
+                  onChange={(e) => setFormData({...formData, companyAddress: e.target.value})}
+                  className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
+                  placeholder="123 Business St, City, Country"
+                />
+              </div>
             </div>
-            <div className="space-y-2">
-              <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Company Mobile</label>
-              <input
-                type="tel"
-                value={formData.companyMobile}
-                onChange={(e) => setFormData({...formData, companyMobile: e.target.value})}
-                className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
-                placeholder="+1 555 555 5555"
-              />
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Company Address</label>
-            <input
-              type="text"
-              value={formData.companyAddress}
-              onChange={(e) => setFormData({...formData, companyAddress: e.target.value})}
-              className="w-full bg-navy-900/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-sky-accent transition-colors text-white"
-              placeholder="123 Business St, City, Country"
-            />
           </div>
 
           <div className="space-y-4">
