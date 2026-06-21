@@ -26,7 +26,7 @@ export function PartnersSection() {
     );
   }, []);
 
-  return (
+  /* return (
     <section className="py-20 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col items-center justify-center text-center mb-12 gap-6">
@@ -74,5 +74,5 @@ export function PartnersSection() {
         </div>
       </div>
     </section>
-  );
+  ); */
 }

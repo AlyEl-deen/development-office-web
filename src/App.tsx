@@ -74,7 +74,7 @@ export default function App() {
                <div className="space-y-3">
                   <p className="text-xs uppercase font-bold text-gold tracking-widest">Contact</p>
                   <ul className="text-sm text-slate-400 space-y-1">
-                    <li><a href="mailto:contact@wmd-office.com" className="hover:text-gold transition-colors">contact@wmd-office.com</a></li>
+                    <li><a href="mailto:development-office@fc-dev-office.com" className="hover:text-gold transition-colors">development-office@fc-dev-office.com</a></li>
                     <li><a href="tel:+201067672492" className="hover:text-gold transition-colors">01067672492</a></li>
                     <li><a href="#" className="hover:text-gold transition-colors">Red Sea, Egypt</a></li>
                   </ul>
