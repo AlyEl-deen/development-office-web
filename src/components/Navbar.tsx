@@ -8,7 +8,7 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: 'Projects', path: '/', icon: Briefcase },
+    { name: 'Projects', path: '#projects', icon: Briefcase },
     { name: 'About', path: '/about', icon: Info },
     { name: 'Order', path: '/order', icon: Terminal },
     { name: 'Contact', path: '#contact', icon: Mail },
@@ -27,7 +27,7 @@ export function Navbar() {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            link.name === 'Contact' ? (
+            link.name === 'Contact' || link.name === 'Projects' ? (
               <a
                 key={link.name}
                 href={link.path}
@@ -64,7 +64,7 @@ export function Navbar() {
           className="md:hidden mt-4 glass rounded-3xl p-6 flex flex-col gap-4 border-gold/10"
         >
           {navLinks.map((link) => (
-            link.name === 'Contact' ? (
+            link.name === 'Contact' || link.name === 'Projects' ? (
               <a
                 key={link.name}
                 href={link.path}
