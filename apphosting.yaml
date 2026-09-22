@@ -1,5 +1,8 @@
 # Settings for Backend (on Cloud Run).
 # See https://firebase.google.com/docs/app-hosting/configure#cloud-run
+build:
+  buildCommand: "npm run build"
+  runtime: nodejs22
 runConfig:
   minInstances: 0
   # maxInstances: 100
